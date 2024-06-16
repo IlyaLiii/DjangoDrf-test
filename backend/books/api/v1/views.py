@@ -40,7 +40,6 @@ class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     filterset_class = BookFilter
 
-    @cache_page(60 * 15)
     def retrieve(self, request, pk=None):
         pre_query = Book.objects.filter(id=pk).order_by('-pub_date')
         category = pre_query[0].categories[0]
@@ -79,21 +78,21 @@ class BookViewSet(viewsets.ModelViewSet):
             json.dumps(new_data, indent=2)
             return Response(new_data, status=status.HTTP_200_OK)
 
-    @cache_page(60 * 15)
     @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     def categories(self, request, *args, **kwargs):
-        print('zxcqwezxc')
         book = self.get_object()
         all_categories = ', '.join(book.categories)
         return Response(all_categories)
 
-    @cache_page(60 * 15)
     @action(detail=True, url_path=r'categories/(?P<subcategories>\w+)', url_name='categories-subcategories',
             renderer_classes=[renderers.StaticHTMLRenderer])
     def sub_categories(self, request, *args, **kwargs):
         book = self.get_object()
-        all_subcategories = ', '.join(book.subcategories)
-        return Response(all_subcategories)
+        if book.subcategories:
+            all_subcategories = ', '.join(book.subcategories)
+            return Response(all_subcategories)
+        else:
+            return Response('Сабкатегории не добавлены')
 
 
 class MultipleFieldLookupMixin:
@@ -111,7 +110,7 @@ class MultipleFieldLookupMixin:
         return obj
 
 
-@cache_page(60 * 15)
+
 @api_view(['GET', 'POST'])
 def get_books_by_category(request, pk: str):
     paginator = PageNumberPagination()
