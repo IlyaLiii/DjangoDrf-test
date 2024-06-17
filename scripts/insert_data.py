@@ -71,3 +71,6 @@ class Loader:
                     ),
                 )
                 cursor.execute(query[0])
+
+loader = Loader(DSN)
+loader.load_into_pg()
