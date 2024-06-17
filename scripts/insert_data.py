@@ -24,11 +24,11 @@ CONFIG = {
 }
 
 DSN = {
-    'dbname': CONFIG.get('POSTGRES_DB'),
-    'user': CONFIG.get('POSTGRES_USER'),
-    'password': CONFIG.get('POSTGRES_PASSWORD'),
-    'host': CONFIG.get('POSTGRES_HOST'),
-    'port': CONFIG.get('DB_PORT', 5432),
+    'dbname': 'DB',
+    'user': 'USER',
+    'password': 'PASSWORD',
+    'host': 'postgres',
+    'port': 5432,
 }
 
 
