@@ -21,8 +21,6 @@ services:
         - postgres
       build:
         context: .
-      environment:
-        - POSTGRES_HOST=postgres
       env_file:
         - .env
       links:
@@ -35,7 +33,7 @@ services:
       expose:
         - "8000"
       networks:
-        - postgres
+        - postgres 
 
 
 volumes:

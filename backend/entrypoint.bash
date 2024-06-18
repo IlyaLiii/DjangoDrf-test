@@ -11,8 +11,8 @@ python manage.py migrate --noinput
 python manage.py createcachetable
 python manage.py collectstatic --clear --noinput
 
-echo python ../scripts/insert_data.py
+python ../scripts/insert_data.py
 python manage.py shell -c "exec(open('../scripts/create_users/create_base_superuser.py').read())"
-python manage.py runserver localhost:8000
+python manage.py runserver
 
 

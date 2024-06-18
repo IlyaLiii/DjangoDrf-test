@@ -3,13 +3,12 @@ import uuid
 from dataclasses import fields, astuple
 from pathlib import Path
 
-from load_json import Parser
 import psycopg2
-from psycopg2.extras import register_uuid
 from dotenv import dotenv_values
+from psycopg2.extras import register_uuid
 
-from load_json import Parser
 from books import Book
+from load_json import Parser
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_PATH = os.path.join(BASE_DIR, 'backend/.env')
